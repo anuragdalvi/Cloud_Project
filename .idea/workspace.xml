@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b8fad22-6d9d-4a3c-8e20-79d640a30c2a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PennBook/.idea/jsLibraryMappings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PennBook/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PennBook/package.json" afterPath="" />
     </list>
     <ignored path="Cloud_Project.iws" />
     <ignored path=".idea/workspace.xml" />
