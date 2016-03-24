@@ -1,0 +1,23 @@
+{
+  "name": "pennbook",
+  "version": "1.0.0",
+  "description": "A Social Networking Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ananthashankar/Cloud_Project.git"
+  },
+  "keywords": [
+    "MEAN",
+    "stack"
+  ],
+  "author": "Anantha Shankar Arun Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ananthashankar/Cloud_Project/issues"
+  },
+  "homepage": "https://github.com/ananthashankar/Cloud_Project#readme"
+}
