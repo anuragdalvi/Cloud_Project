@@ -12,6 +12,12 @@
         $rootScope.user;
         $scope.user = {username:"",password:""};
         $scope.login = login;
+        $scope.toRegister = tr;
+
+        function tr () {
+            console.log("to register");
+            $location.url('/register');
+        }
 
         function login (username, password) {
 

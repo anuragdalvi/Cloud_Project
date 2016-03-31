@@ -1,5 +1,6 @@
 /**
  * Created by Anantha on 3/25/16.
+ * api calls to user.model
  */
 //var model = require("../models/user.model.js")();
 
@@ -14,6 +15,7 @@ module.exports = function (app,model) {
     //app.put('/api/user/:id/follower',addFollower);
 
     function getAllUsers(req , res){
+
 
         model
             .getAllUsers()

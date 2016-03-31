@@ -4,7 +4,7 @@
 (function () {
 
     angular
-        .module("TripTorque")
+        .module("PennBook")
         .factory("UserService", UserService);
 
 
@@ -19,7 +19,7 @@
         {
             findUserByUsername: findUserByUsername ,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findUserByUserId: findUserByUserId,
+            //findUserByUserId: findUserByUserId,
             createUser: createUser,
             removeUserById: removeUserById,
             updateUser: updateUser,
@@ -78,6 +78,7 @@
 
         function createUser(user)
         {
+            console.log("Creating user");
             var deferred = $q.defer();
             $http.post("/api/user",user)
                 .success(function(response){

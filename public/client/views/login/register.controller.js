@@ -6,13 +6,12 @@
         .module("PennBook")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $location, $rootScope,UserService,$q)
+    function RegisterController($scope, $location, $rootScope,UserService,$q,$window)
     {
-
 
         $scope.register = register;
         $rootScope.user ;//= {username:"",password:"",email:"",userid:"",logged:false,globalusername:""};
-        $scope.user = {email:"",password:"", firstname:"", lastname:""};
+        $scope.user = {email:"",password:"", firstname:"", lastname:"", username:""};
         $scope.validateUsername = validateUsername;
         $scope.duplicateusername = [];
         $scope.usernamevalid = false;
@@ -67,6 +66,7 @@
 
                 var emailvalid = ValidateEmail($scope.user.email);
                 //var passwordvalid = ValidatePassword();
+                //user.username = user.email;
 
                 $scope.validateUsername().then(function(response){
                     $scope.duplicateusername = response;
@@ -87,10 +87,11 @@
                         {
                             username : $scope.user.email,
                             password : $scope.user.password,
-
+                            email : $scope.user.email,
                             firstname:$scope.user.firstname,
                             lastname:$scope.user.lastname
                         };
+                        console.log(newUser);
                         UserService.createUser(newUser).then(function (response) {
 
                             newUser = response;
@@ -101,7 +102,10 @@
                             $rootScope.$broadcast('auth', rootscopeuser);
                             $scope.user = {username:"",password:"",firstname:"",lastname:""};
                             //$location.url('/timeline/'+newUser._id);
-                            $location.url('#/login');
+                            console.log("user created");
+                            $location.url("/login");
+                            //$window.location.assign('/client/index.html#/login');
+
                         });
                     }
                     else

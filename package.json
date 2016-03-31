@@ -17,6 +17,25 @@
   },
   "homepage": "https://github.com/ananthashankar/Cloud_Project#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "guid": "0.0.12",
+    "mongoose": "^4.4.10",
+    "q": "^1.4.1",
+    "uuid": "^2.0.1",
+    "body-parser": "^1.15.0",
+    "node-uuid": "^1.4.7"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
+
 }
