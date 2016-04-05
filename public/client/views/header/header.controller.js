@@ -7,7 +7,7 @@
 (function () {
     angular
         .module("PennBook")
-        .controller("LoginController", LoginController);
+        .controller("HeaderController", LoginController);
     function LoginController($scope , $rootScope, $location, UserService){
 
         console.log("In Login Controller");

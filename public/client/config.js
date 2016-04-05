@@ -46,6 +46,14 @@
                 templateUrl: "views/login/register.view.html",
                 controller: "RegisterController"
             })
+            .when("/notifications",{
+                templateUrl: "views/notifications/notifications.view.html",
+                controller: "NotificationController"
+            })
+            .when("/edit-profile/:userid",{
+                templateUrl: "views/privateProfile/editProfile.view.html",
+                controller: "EditProfileController"
+            })
             .otherwise({
                 redirectTo: "/login"
             });
