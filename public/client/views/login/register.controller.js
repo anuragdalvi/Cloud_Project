@@ -6,7 +6,7 @@
         .module("PennBook")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $location, $rootScope,UserService,$q,$window)
+    function RegisterController($scope, $location, $rootScope,UserService,$q,ProfileService)
     {
 
         $scope.register = register;
