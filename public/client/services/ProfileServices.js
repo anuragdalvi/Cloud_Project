@@ -5,10 +5,10 @@
 
     angular
         .module("PennBook")
-        .factory("AdminService", AdminService);
+        .factory("ProfileService", ProfileService);
 
 
-    function AdminService($rootScope, $http, $q) {
+    function ProfileService($rootScope, $http, $q) {
 
     }
 })();
