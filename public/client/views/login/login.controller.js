@@ -5,23 +5,26 @@
     angular
         .module("PennBook")
         .controller("LoginController", LoginController);
-    function LoginController($scope , $rootScope, $location, UserService){
+    function LoginController($scope , $rootScope, $location, $q, UserService, ProfileService){
 
         console.log("In Login Controller");
 
         $rootScope.user;
+        $rootScope.profile;
         //$scope.user = {username:"",password:""};
         $scope.login = login;
         $scope.toggle = toggle;
         $scope.clickV = "true";
 
-        $scope.user = {email:"",password:"", firstname:"", lastname:"", username:""};
+        $scope.user = {email:"", password:"", firstname:"", lastname:"", username:""};
+
         $scope.validateUsername = validateUsername;
         $scope.duplicateusername = [];
         $scope.usernamevalid = false;
+        $scope.register = register;
 
         // toggle between login and register
-        function toggle(id) {
+        function toggle() {
             console.log("to toggle");
 
                 console.log("in 1");
@@ -42,6 +45,8 @@
 
         function register()
         {
+            console.log("in register");
+
             if($scope.user.email == "" || $scope.user.password =="")
             {
                 alert('Please enter all the details');
@@ -62,23 +67,7 @@
                 }
 
 
-                //function ValidatePassword (){
-                //
-                //    if($scope.user.verify_password == $scope.user.password)
-                //    {
-                //        return true;
-                //    }
-                //    else
-                //    {
-                //        alert('PASSWORDS DONT MATCH');
-                //        return false;
-                //    }
-                //    return false;
-                //}
-
                 var emailvalid = ValidateEmail($scope.user.email);
-                //var passwordvalid = ValidatePassword();
-                //user.username = user.email;
 
                 $scope.validateUsername().then(function(response){
                     $scope.duplicateusername = response;
@@ -103,7 +92,7 @@
                             firstname:$scope.user.firstname,
                             lastname:$scope.user.lastname
                         };
-                        console.log(newUser);
+
                         UserService.createUser(newUser).then(function (response) {
 
                             newUser = response;
@@ -113,10 +102,29 @@
                             var rootscopeuser = $rootScope.user;
                             $rootScope.$broadcast('auth', rootscopeuser);
                             $scope.user = {username:"",password:"",firstname:"",lastname:""};
-                            //$location.url('/timeline/'+newUser._id);
                             console.log("user created");
-                            $location.url("/login");
-                            //$window.location.assign('/client/index.html#/login');
+
+                            var newProfile = {userid:$rootScope.user._id,
+                                profilePic:"",
+                                friends:"",
+                                posts:"",
+                                messages:"",
+                                notifications:"",
+                                phone:"",
+                                country:"",
+                                occupation:"",
+                                friendRequests:"",
+                                dateOfBirth:""};
+
+                            ProfileService.createProfile(newProfile).then(function(response){
+
+                                newProfile = response;
+                                $rootScope.profile = newProfile;
+
+                                console.log(newProfile);
+                                toggle();
+
+                        });
 
                         });
                     }
@@ -126,8 +134,6 @@
                         //do nothing
                     }
                 });
-
-
                 //$scope.user.password == $scope.user.verify_password;
             }
         }
@@ -145,14 +151,24 @@
                         alert("username password not Matching");
                     }
                     else {
+
                         $rootScope.user = user[0];
-                        $rootScope.user.logged = true;
-                        $rootScope.user.globalusername = $scope.user.username;
-                        var rootscopeuser = $rootScope.user;
-                        $rootScope.$broadcast('auth', rootscopeuser);
-                        $scope.user.username = "";
-                        $scope.user.password = "";
-                        $location.url('/timeline/' + $rootScope.user._id);
+
+                        ProfileService.getProfileByUserId($rootScope.user._id).then(function (response) {
+
+
+                            $rootScope.profile = response;
+
+                            console.log($rootScope.profile + "\n profile of the user " + $rootScope.user.username);
+
+                            $rootScope.user.logged = true;
+                            $rootScope.user.globalusername = $scope.user.username;
+                            var rootscopeuser = $rootScope.user;
+                            $rootScope.$broadcast('auth', rootscopeuser);
+                            $scope.user.username = "";
+                            $scope.user.password = "";
+                            $location.url('/timeline/' + $rootScope.user._id);
+                        });
                     }
 
                 });
