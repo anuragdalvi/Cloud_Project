@@ -13,6 +13,7 @@ module.exports = function (mongoose,db) {
         phone:Number,
         country:String,
         occupation:String,
+        friendRequests:[{userid:String}],
         dateOfBirth:{ type : Date, default: Date.now }
 
     },{collection:"profiles"});
