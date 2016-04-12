@@ -78,7 +78,7 @@
 
         function createUser(user)
         {
-            console.log("Creating user");
+            console.log("I reached client user creation services");
             var deferred = $q.defer();
             $http.post("/api/user",user)
                 .success(function(response){

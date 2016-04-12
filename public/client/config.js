@@ -19,7 +19,7 @@
                 controller: "TimelineController"
             })
             .when("/about/:userid", {
-                templateUrl: "views/publicProfile/publicProfile.view.html",
+                templateUrl: "views/about/publicProfile.view.html",
                 controller: "AboutController"
             })
             .when("/friends", {

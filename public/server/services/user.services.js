@@ -26,7 +26,7 @@ module.exports = function (app,model) {
 
     function CreateNewUser (req, res) {
 
-        console.log('i reached create');
+        console.log('i reached user create api service');
         var user = req.body;
         model
             .create(user)
