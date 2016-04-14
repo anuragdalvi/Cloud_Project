@@ -5,7 +5,8 @@ module.exports = function (mongoose,db) {
 
     var ProfileSchema = new mongoose.Schema({
         userid:String,
-        profilePic:{ data: Buffer, contentType: String },
+        //profilePic:{ name: String, img: Buffer, contentType: String },
+        profilePic:String,
         friends:[{userid:String}],
         posts:[{postid:String}],
         messages:[{messageid:String}],
@@ -14,6 +15,8 @@ module.exports = function (mongoose,db) {
         country:String,
         occupation:String,
         friendRequests:[{userid:String}],
+        role: { type: String, default: 'user' },
+        privacy: {type: String, default: 'public'},
         dateOfBirth:{ type : Date, default: Date.now }
 
     },{collection:"profiles"});

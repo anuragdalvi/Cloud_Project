@@ -39,8 +39,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="active">
                     <a href="#/about/{{user._id}}">
-                        Jonathan Smith
-                        <img src="img/Friends/guy-3.jpg" class="img-nav">
+                        {{profileName}}
+                        <img src="{{profilePicture}}" class="img-nav">
                     </a>
                 </li>
                 <li><a href="#/timeline/{{user._id}}"><i class="fa fa-bars"></i>&nbsp;Home</a></li>
@@ -60,11 +60,11 @@
             <div class="profile-nav col-md-4">
                 <div class="panel">
                     <div class="user-heading round">
-                        <a href="#">
-                            <img src="img/Friends/guy-3.jpg" alt="">
+                        <a href="#/about/{{user._id}}">
+                            <img src="{{profilePicture}}" alt="">
                         </a>
-                        <h1>Jonathan Smith</h1>
-                        <p>jsmith@flatlab.com</p>
+                        <h1>{{profileName}}</h1>
+
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
