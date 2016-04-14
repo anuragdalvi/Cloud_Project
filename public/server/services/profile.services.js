@@ -22,7 +22,8 @@ module.exports = function (app,model) {
     function getProfileByUserId(req, res) {
 
         console.log('i reached get profile api service');
-        var userId = req.body;
+
+        var userId = req.params.id;
         model
             .getProfileByUserId(userId)
             .then(function(profile){

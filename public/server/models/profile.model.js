@@ -24,7 +24,7 @@ module.exports = function(app,mongoose,db,ProfileSchema){
         ProfileModel.create(newProfile,function(err , profile){
             deferred.resolve(profile);
             console.log('resp');
-            console.log(profile);
+            //console.log(profile);
         });
         return deferred.promise;
     }
@@ -36,10 +36,13 @@ module.exports = function(app,mongoose,db,ProfileSchema){
 
         console.log('i reached getprofilebyuserid model');
 
-        ProfileModel.find({userid:userid}, function(err , profile){
-            deferred.resolve(profile);
+        ProfileModel.find({userid:userId}, function(err , profile){
+
             console.log('resp');
-            console.log(profile);
+            //console.log(profile);
+
+            deferred.resolve(profile);
+
         });
 
         return deferred.promise;
@@ -53,17 +56,23 @@ module.exports = function(app,mongoose,db,ProfileSchema){
 
         console.log('i reached update profile model');
 
-        ProfileModel.findByIdAndUpdate(updateProfile._id, {$set:{}},function(err , profile){
+        ProfileModel.findByIdAndUpdate(updateProfile._id, {$set:{userid:updateProfile.userid,profilePic:updateProfile.profilePic,
+            friends:updateProfile.friends, posts:updateProfile.posts, messages:updateProfile.messages,
+            notifications:updateProfile.notifications, phone:updateProfile.phone, country:updateProfile.country,
+            occupation:updateProfile.occupation, friendRequests:updateProfile.friendRequests,
+            dateOfBirth:updateProfile.dateOfBirth}},function(err , profile){
 
             ProfileModel.findById(updateProfile._id, function(err , profile) {
 
                 console.log('resp');
-                console.log(profile);
+               // console.log(profile);
                 deferred.resolve(profile);
 
             });
 
         });
+
+        return deferred.promise;
 
     }
 

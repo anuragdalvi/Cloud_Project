@@ -38,7 +38,7 @@
         {
             console.log("reached client get profile services");
             var deferred = $q.defer();
-            $http.get("/api/profile/:id",userId)
+            $http.get("/api/profile/"+userId)
                 .success(function(response){
                     deferred.resolve(response);
                 });
