@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var connectionString = mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 var db = mongoose.connection;
-
+//var fs = require('fs');
 app.use(express.static(__dirname + '/public'));
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
