@@ -5,7 +5,7 @@
     angular
         .module("PennBook")
         .controller("LoginController", LoginController);
-    function LoginController($scope , $rootScope, $location, $q, UserService, ProfileService){
+    function LoginController($scope , $rootScope, $location, $q, $localStorage, $sessionStorage, UserService, ProfileService){
 
         console.log("In Login Controller");
 
@@ -96,16 +96,24 @@
                         UserService.createUser(newUser).then(function (response) {
 
                             newUser = response;
-                            $rootScope.user = newUser;
-                            $rootScope.user.logged = true;
-                            $rootScope.user.globalusername = newUser.username;
-                            var rootscopeuser = $rootScope.user;
-                            $rootScope.$broadcast('auth', rootscopeuser);
-                            $scope.user = {username:"",password:"",firstname:"",lastname:""};
+                            //$rootScope.user = newUser;
+                            //$rootScope.user.logged = true;
+                            //$rootScope.user.globalusername = newUser.username;
+                            //var rootscopeuser = $rootScope.user;
+                            //$rootScope.$broadcast('auth', rootscopeuser);
+                            //$scope.user = {username:"",password:"",firstname:"",lastname:""};
                             console.log("user created");
 
-                            var newProfile = {userid:$rootScope.user._id,
-                                profilePic:"",
+                            //var fs = require('fs');
+
+                            // read and convert the file
+                            //var bitmap = $fs.readFileSync("images/default-profile-pic.png");
+                            //var encImage = new Buffer(bitmap).toString('base64');
+
+                            //var pic = "images/default-profile-pic.png";
+
+                            var newProfile = {userid:response.user._id,
+                                profilePic:"images/default-profile-pic.png",
                                 friends:"",
                                 posts:"",
                                 messages:"",
@@ -114,12 +122,13 @@
                                 country:"",
                                 occupation:"",
                                 friendRequests:"",
-                                dateOfBirth:""};
+                                dateOfBirth:"12/10/1990"
+                            };
 
                             ProfileService.createProfile(newProfile).then(function(response){
 
                                 newProfile = response;
-                                $rootScope.profile = newProfile;
+                                //$rootScope.profile = newProfile;
 
                                 console.log(newProfile);
                                 toggle();
@@ -146,20 +155,20 @@
             else {
                 UserService.findUserByUsernameAndPassword(username, password).then(function (response) {
                     var user = response;
-                    console.log(response);
+
                     if (user.length == 0) {
                         alert("username password not Matching");
                     }
                     else {
 
+                        $sessionStorage.user = user[0];
                         $rootScope.user = user[0];
 
                         ProfileService.getProfileByUserId($rootScope.user._id).then(function (response) {
 
+                            $rootScope.profile = response[0];
+                            $sessionStorage.profile = response[0];
 
-                            $rootScope.profile = response;
-
-                            console.log($rootScope.profile + "\n profile of the user " + $rootScope.user.username);
 
                             $rootScope.user.logged = true;
                             $rootScope.user.globalusername = $scope.user.username;
