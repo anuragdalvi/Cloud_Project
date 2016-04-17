@@ -96,6 +96,7 @@
                         UserService.createUser(newUser).then(function (response) {
 
                             newUser = response;
+                            console.log(newUser + " newUser");
                             //$rootScope.user = newUser;
                             //$rootScope.user.logged = true;
                             //$rootScope.user.globalusername = newUser.username;
@@ -112,7 +113,7 @@
 
                             //var pic = "images/default-profile-pic.png";
 
-                            var newProfile = {userid:response.user._id,
+                            var newProfile = {userid:newUser._id,
                                 profilePic:"images/default-profile-pic.png",
                                 friends:"",
                                 posts:"",

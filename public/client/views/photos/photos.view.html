@@ -74,7 +74,7 @@
                         <li><a href="#/profile/:userid"> <i class="fa fa-info-circle"></i> About</a></li>
                         <li><a href="#/friends"> <i class="fa fa-users"></i> Friends</a></li>
                         <li class="active"><a href="#/photos"> <i class="fa fa-file-image-o"></i> Photos</a></li>
-                        <li><a href="#/edit-profile/:userid"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li><a href="#/edit-profile/{{user._id}}"> <i class="fa fa-edit"></i> Edit profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,48 +85,17 @@
                         <h3 class="panel-title">Photos</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/9.jpg" alt="photo 9" class="img-responsive  show-in-modal">
+                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content" ng-repeat="post in myPosts"
+                             ng-show="post.photo.length != 0" style="width:185px;height:185px;overflow:hidden;">
+                            <img ng-src={{post.photo}} alt="photo 1" class="img-responsive  show-in-modal"
+                                 width="200px" height="auto">
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/4.jpg" alt="photo 4" class="img-responsive show-in-modal">
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/8.jpg" alt="photo 8" class="img-responsive  show-in-modal">
-                        </div>
-
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/7.jpg" alt="photo 7" class="img-responsive  show-in-modal">
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/6.jpg" alt="photo 6" class="img-responsive  show-in-modal">
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/2.jpg" alt="photo 2" class="img-responsive show-in-modal">
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/3.jpg" alt="photo 3" class="img-responsive show-in-modal">
-                        </div>
-
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/5.jpg" alt="photo 5" class="img-responsive show-in-modal">
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-6 photo-content">
-                            <img src="img/Photos/1.jpg" alt="photo 1" class="img-responsive show-in-modal">
-                        </div>
-                        <div class="col-md-12  post-load-more  text-center">
-                            <button class="btn btn-danger">
-                                <i class="fa fa-refresh"></i>Load More...
-                            </button>
-                        </div>
+                        <!--<div class="col-md-12  post-load-more  text-center">-->
+                            <!--<button class="btn btn-danger">-->
+                                <!--<i class="fa fa-refresh"></i>Load More...-->
+                            <!--</button>-->
+                        <!--</div>-->
                     </div>
                 </div><!-- end panel photos -->
             </div>
