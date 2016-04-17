@@ -10,9 +10,25 @@ module.exports = function (app,model) {
     app.get('/api/user?',findByQueryString); /* for login */
     app.get('/api/user/:id', findUserByUserId);
     app.put('/api/user/:id',updateUser);
+    app.put('/api/password/:id', updatePassword),
     app.delete('/api/user/:id',removeUserById);
     app.get('/api/users/admin',getAllUsers);
+    app.get('/api/password/:pwd', parsePassword);
     //app.put('/api/user/:id/follower',addFollower);
+
+
+    function parsePassword(req, res){
+
+        var password = req.params.pwd;
+
+        model
+            .parsePassword(password)
+            .then(function(result){
+
+                res.json(result);
+            });
+
+    }
 
     function getAllUsers(req , res){
 
@@ -35,13 +51,14 @@ module.exports = function (app,model) {
             });
     }
 
-    function  allUsers (req, res) {
-        res.json(model.findAll());
-    }
+    //function  allUsers (req, res) {
+    //    res.json(model.findAll());
+    //}
 
     function findUserByUserId (req, res) {
         console.log('inside find by ID');
         var userid = req.params.id;
+
         model
             .findUserByUserId(userid)
             .then(function(user){
@@ -85,6 +102,20 @@ module.exports = function (app,model) {
                 res.json(user);
             });
 
+    }
+
+    function updatePassword(req, res) {
+
+        console.log("updatePassword");
+        var userid = req.params.id;
+        var user = req.body;
+        console.log(userid);
+        console.log(user);
+        model
+            .updatePassword(user._id,user)
+            .then(function(user){
+                res.json(user);
+            });
     }
 
     function updateUser(req, res) {

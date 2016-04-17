@@ -7,7 +7,9 @@ module.exports = function (mongoose,db) {
         userid:String,
         postid:String,
         time:{ type : Date, default: Date.now },
-        content:String
+        content:String,
+        photo:String,
+        userName: String
 
     },{collection:"comments"});
 
