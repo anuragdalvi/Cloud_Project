@@ -72,7 +72,7 @@
                         <li class="active"><a href="#/profile/:userid"> <i class="fa fa-info-circle"></i> About</a></li>
                         <li><a href="#/friends"> <i class="fa fa-users"></i> Friends</a></li>
                         <li><a href="#/photos"> <i class="fa fa-file-image-o"></i> Photos</a></li>
-                        <li><a href="#/edit-profile/:userid"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li><a href="#/edit-profile/{{user._id}}"> <i class="fa fa-edit"></i> Edit profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -104,31 +104,55 @@
                         <h1>Bio Graph</h1>
                         <div class="row">
                             <div class="bio-row">
-                                <p><span>First Name </span>: Jonathan</p>
+                                <p><span>First Name </span>: {{user.firstname}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Last Name </span>: Smith</p>
+                                <p><span>Last Name </span>: {{user.lastname}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Country </span>: Colombian</p>
+                                <p><span>Country </span>: {{profile.country}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Birthday</span>: 13 July 1991</p>
+                                <p><span>Birthday</span>: {{bday}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Occupation </span>: Bootdey Dev</p>
+                                <p><span>Occupation </span>: {{profile.occupation}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Email </span>: jsmith@bootdey.com</p>
+                                <p><span>Email </span>: {{user.email}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Mobile </span>: (12) 03 7564546</p>
+                                <p><span>Phone </span>: {{profile.phone}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Phone </span>: 88 (02) 9876543</p>
+                                <p><span>Role </span>: {{profile.role}}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="panel">
+                    <h4>Friend Requests</h4>
+
+                    <div class="col-md-5" ng-repeat="request in requests" ng-show="request.length != 0">
+                        <div class="widget-head-color-box lazur-bg p-lg text-center">
+                            <div class="m-b-md">
+                                <small>Alex smith</small>
+                            </div>
+                            <img src="img/Friends/guy-2.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                            <div>
+                                <span>100 Friends</span> |
+                                <span>350 Photos</span>
+                            </div>
+                        </div>
+                        <div class="widget-text-box">
+                            <a ng-click="friendRequestResponse(request, 1)" class="btn btn-xs btn-default"> Accept </a>
+                            <a ng-click="friendRequestResponse(request, 0)" class="btn btn-xs btn-default"> Reject </a>
+                            <div class="text-right_">
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

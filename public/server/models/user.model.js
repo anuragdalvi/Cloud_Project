@@ -18,10 +18,22 @@ module.exports = function(app,mongoose,db,UserSchema){
         update: update,
         removeUserById: removeUserById,
         findUserByUserId:findUserByUserId,
+        parsePassword: parsePassword,
+        updatePassword: updatePassword
 
     };
 
     return api;
+
+    function parsePassword(password){
+        var deferred = q.defer();
+
+        var newPassword = sha1(password);
+
+        deferred.resolve(newPassword);
+        return deferred.promise;
+
+    }
 
     function create(user){
         var deferred = q.defer();
@@ -32,8 +44,7 @@ module.exports = function(app,mongoose,db,UserSchema){
 
         UserModel.create(newUser,function(err , user){
             deferred.resolve(user);
-            console.log('resp');
-            console.log(user);
+
         });
         return deferred.promise;
     }
@@ -41,8 +52,10 @@ module.exports = function(app,mongoose,db,UserSchema){
     function findUserByUserId(userid){
         console.log('i reached find User By userid model');
         var deferred = q.defer();
+
         UserModel.findById(userid,function(err , user){
             deferred.resolve(user);
+
         });
         return deferred.promise;
     }
@@ -60,15 +73,27 @@ module.exports = function(app,mongoose,db,UserSchema){
     function update(userid,user){
         console.log('i reached user update model');
         var deferred = q.defer();
-        console.log('inside model update');
-        console.log(user);
-        console.log(userid);
 
-
-        UserModel.findByIdAndUpdate(userid,{$set:{firstname:user.firstname,lastname:user.lastname,email:user.email,city:user.city,state:user.state}},function(err , user){
+        UserModel.findByIdAndUpdate(userid,{$set:{firstname:user.firstname,lastname:user.lastname}},function(err , user){
             UserModel.findById(userid,function(err , user){
-                console.log('after update');
-                console.log(user);
+
+                deferred.resolve(user);
+            });
+        });
+
+        return deferred.promise;
+
+    }
+
+    function updatePassword(userid,user){
+        console.log('i reached user update password model');
+        var deferred = q.defer();
+        var pwd = sha1(user.password);
+
+
+        UserModel.findByIdAndUpdate(userid,{$set:{password:pwd}},function(err , user){
+            UserModel.findById(userid,function(err , user){
+
                 deferred.resolve(user);
             });
         });

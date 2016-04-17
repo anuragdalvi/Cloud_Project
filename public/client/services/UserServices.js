@@ -19,17 +19,30 @@
         {
             findUserByUsername: findUserByUsername ,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            //findUserByUserId: findUserByUserId,
+            findUserByUserId: findUserByUserId,
             createUser: createUser,
             removeUserById: removeUserById,
             updateUser: updateUser,
             getAllUsers : getAllUsers,
+            parsePassword: parsePassword,
+            updatePassword:updatePassword
             //addFollower:addFollower
             //updateUserDetails:updateUserDetails
 
         };
 
         return service;
+
+        function parsePassword(password)
+        {
+            console.log("I reached client password services");
+            var deferred = $q.defer();
+            $http.get("/api/password/"+password)
+                .success(function(response){
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
 
         function getAllUsers(){
 
@@ -54,16 +67,16 @@
             return deferred.promise;
         }
 
-        //function findUserByUserId(userid)
-        //{
-        //    var deferred = $q.defer();
-        //    $http.get("/api/user/"+userid)
-        //        .success(function(response){
-        //
-        //            deferred.resolve(response);
-        //        });
-        //    return deferred.promise;
-        //}
+        function findUserByUserId(userid)
+        {
+            var deferred = $q.defer();
+            $http.get("/api/user/"+userid)
+                .success(function(response){
+
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
 
         function findUserByUsernameAndPassword(username , password )
         {
@@ -103,7 +116,19 @@
         {
 
             var deferred = $q.defer();
-            $http.put("/api/user/"+user.id ,user)
+            $http.put("/api/user/"+user._id ,user)
+                .success(function(response){
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+
+        }
+
+        function updatePassword(user)
+        {
+
+            var deferred = $q.defer();
+            $http.put("/api/password/"+user._id ,user)
                 .success(function(response){
                     deferred.resolve(response);
                 });

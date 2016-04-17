@@ -80,7 +80,7 @@
                         <li><a href="#/profile/:userid"> <i class="fa fa-info-circle"></i> About</a></li>
                         <li><a href="#/friends"> <i class="fa fa-users"></i> Friends</a></li>
                         <li><a href="#/photos"> <i class="fa fa-file-image-o"></i> Photos</a></li>
-                        <li class="active"><a href="#/edit-profile/:userid"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li class="active"><a href="#/edit-profile/{{user._id}}"> <i class="fa fa-edit"></i> Edit profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -94,29 +94,52 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">First name</label>
                             <div class="col-md-8">
-                                <input class="form-control" type="text">
+                                <input ng-model="user.firstname" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Last name</label>
                             <div class="col-md-8">
-                                <input class="form-control" type="text">
+                                <input ng-model="user.lastname" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Username</label>
+                            <label class="col-md-3 control-label">Phone</label>
                             <div class="col-md-8">
-                                <input class="form-control" type="text" value="">
+                                <input ng-model="profile.phone" class="form-control" type="text" value="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Email</label>
+                            <label class="col-md-3 control-label">Country</label>
                             <div class="col-md-8">
-                                <input class="form-control" type="text">
+                                <input ng-model="profile.country" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger">Save</button>
+                            <label class="col-md-3 control-label">Occupation</label>
+                            <div class="col-md-8">
+                                <input ng-model="profile.occupation" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-3 control-label">Date of Birth</label>
+                            <div class="col-md-8">
+                                <input ng-model="dob" class="form-control" type="date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-3 control-label">Profile Privacy</label>
+                            <div class="col-md-8">
+                                <select ng-model="profile.privacy" class="form-control">
+                                    <option selected="selected" value="public">Public</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button ng-click="userAndProfileSave()" class="btn btn-danger">Save</button>
                         </div>
                     </div>
                 </div><!-- end update info-->
@@ -129,17 +152,17 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Current password</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" value="">
+                                <input ng-model="oldPassword" class="form-control" type="password">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">New password</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" value="">
+                                <input ng-model="newPassword" class="form-control" type="password">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger">Save</button>
+                            <button ng-click="userPasswordSave()" type="submit" class="btn btn-danger">Save</button>
                         </div>
                     </div>
                 </div><!-- end update info-->

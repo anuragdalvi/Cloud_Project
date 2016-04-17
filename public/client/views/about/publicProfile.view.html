@@ -72,45 +72,20 @@
                         <li><a href="#/profile/:userid"> <i class="fa fa-info-circle"></i> About</a></li>
                         <li><a href="#/friends"> <i class="fa fa-users"></i> Friends</a></li>
                         <li><a href="#/photos"> <i class="fa fa-file-image-o"></i> Photos</a></li>
-                        <li><a href="#/edit-profile/:userid"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li><a href="#/edit-profile/{{user._id}}"> <i class="fa fa-edit"></i> Edit profile</a></li>
                     </ul>
                 </div>
                 <!-- friends -->
                 <div class="panel panel-white panel-friends">
                     <div class="panel-heading">
-                        <a href="#" class="pull-right">View all&nbsp;<i class="fa fa-share-square-o"></i></a>
+                        <a href="#/friends" class="pull-right">View all&nbsp;<i class="fa fa-share-square-o"></i></a>
                         <h3 class="panel-title">Friends</h3>
                     </div>
                     <div class="panel-body text-center">
-                        <ul class="friends">
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/woman-4.jpg" title="Jhoanath matew" class="img-responsive tip">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/woman-3.jpg" title="Martha creawn" class="img-responsive tip">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/guy-2.jpg" title="Jeferh smith" class="img-responsive tip">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/woman-9.jpg" title="Linda palma" class="img-responsive tip">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/guy-9.jpg" title="Lindo polmo" class="img-responsive tip">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Friends/guy-5.jpg" title="andrew cartson" class="img-responsive tip">
+                        <ul class="friends" >
+                            <li ng-repeat="friend in friends | limitTo: 6" ng-show="friend.profile.profilePic.length != 0">
+                                <a href="#/friends">
+                                    <img ng-src={{friend.profile.profilePic}} class="img-responsive tip">
                                 </a>
                             </li>
                         </ul>
@@ -119,39 +94,14 @@
                 <!-- photos -->
                 <div class="panel panel-white">
                     <div class="panel-heading">
-                        <a href="#" class="pull-right">View all&nbsp;<i class="fa fa-share-square-o"></i></a>
+                        <a href="#/photos" class="pull-right">View all&nbsp;<i class="fa fa-share-square-o"></i></a>
                         <h3 class="panel-title">Photos</h3>
                     </div>
-                    <div class="panel-body text-center">
-                        <ul class="photos">
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/5.jpg" alt="photo 1" class="img-responsive show-in-modal">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/2.jpg" alt="photo 2" class="img-responsive show-in-modal">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/3.jpg" alt="photo 3" class="img-responsive show-in-modal">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/7.jpg" alt="photo 4" class="img-responsive show-in-modal">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/5.jpg" alt="photo 5" class="img-responsive show-in-modal">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/Photos/4.jpg" alt="photo 6" class="img-responsive show-in-modal">
+                    <div class="panel-body text-center" >
+                        <ul class="photos" >
+                            <li ng-repeat="post in myPosts | limitTo: 6" ng-show="post.photo.length != 0">
+                                <a href="#/photos">
+                                    <img ng-src={{post.photo}} alt="photo 1" class="img-responsive show-in-modal">
                                 </a>
                             </li>
                         </ul>
@@ -159,347 +109,183 @@
                 </div><!-- end photos-->
 
                 <!-- likes -->
-                <div class="panel panel-white panel-likes">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-thumbs-o-up"></i>&nbsp;Likes</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            </ol>
+                <!--<div class="panel panel-white panel-likes">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h3 class="panel-title"><i class="fa fa-thumbs-o-up"></i>&nbsp;Likes</h3>-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="">-->
+                            <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+                            <!--<ol class="carousel-indicators">-->
+                                <!--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>-->
+                                <!--<li data-target="#carousel-example-generic" data-slide-to="1"></li>-->
+                            <!--</ol>-->
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox-likes">
-                                <div class="item active">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-1.png" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-2.png" alt="Like"></a></div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-3.png" class="show-in-modal" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-4.png" class="show-in-modal" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" class="show-in-modal" alt="Like"></a></div>
-                                        <div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" class="show-in-modal" alt="Like"></a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+                            <!--<div class="carousel-inner" role="listbox-likes">-->
+                                <!--<div class="item active">-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-1.png" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-2.png" alt="Like"></a></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item">-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-3.png" class="show-in-modal" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-4.png" class="show-in-modal" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-5.png" class="show-in-modal" alt="Like"></a></div>-->
+                                        <!--<div class="col-md-6 col-sm-6 col-xs-3"><a href="#" class="thumbnail"><img src="img/Likes/likes-6.png" class="show-in-modal" alt="Like"></a></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                </div><!-- en likes -->
+                            <!--&lt;!&ndash; Controls &ndash;&gt;-->
+                            <!--<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">-->
+                                <!--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
+                                <!--<span class="sr-only">Previous</span>-->
+                            <!--</a>-->
+                            <!--<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">-->
+                                <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
+                                <!--<span class="sr-only">Next</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>&lt;!&ndash; en likes &ndash;&gt;-->
                 <!-- groups -->
-                <div class="panel panel-white panel-groups">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Groups</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="col-xs-3 col-sm-6 col-md-3">
-                                    <img src="img/Likes/likes-5.png" alt="Group" class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-9 col-sm-6">
-                                    <span class="name">Bootdey competitors</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="col-xs-3 col-sm-6 col-md-3">
-                                    <img src="img/Likes/likes-1.png" alt="Group" class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-9 col-sm-6">
-                                    <span class="name">Git in action</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="col-xs-3 col-sm-6 col-md-3">
-                                    <img src="img/Likes/likes-6.png" alt="Group" class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-9 col-sm-6">
-                                    <span class="name">Bootdey Snippets</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="col-xs-3 col-sm-6 col-md-3">
-                                    <img src="img/Likes/likes-2.png" alt="Group" class="img-responsive img-circle" />
-                                </div>
-                                <div class="col-xs-9 col-sm-6">
-                                    <span class="name">Html 5 live</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- end groups-->
+                <!--<div class="panel panel-white panel-groups">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h3 class="panel-title">Groups</h3>-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<ul class="list-group">-->
+                            <!--<li class="list-group-item">-->
+                                <!--<div class="col-xs-3 col-sm-6 col-md-3">-->
+                                    <!--<img src="img/Likes/likes-5.png" alt="Group" class="img-responsive img-circle" />-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-9 col-sm-6">-->
+                                    <!--<span class="name">Bootdey competitors</span>-->
+                                <!--</div>-->
+                                <!--<div class="clearfix"></div>-->
+                            <!--</li>-->
+                            <!--<li class="list-group-item">-->
+                                <!--<div class="col-xs-3 col-sm-6 col-md-3">-->
+                                    <!--<img src="img/Likes/likes-1.png" alt="Group" class="img-responsive img-circle" />-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-9 col-sm-6">-->
+                                    <!--<span class="name">Git in action</span>-->
+                                <!--</div>-->
+                                <!--<div class="clearfix"></div>-->
+                            <!--</li>-->
+                            <!--<li class="list-group-item">-->
+                                <!--<div class="col-xs-3 col-sm-6 col-md-3">-->
+                                    <!--<img src="img/Likes/likes-6.png" alt="Group" class="img-responsive img-circle" />-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-9 col-sm-6">-->
+                                    <!--<span class="name">Bootdey Snippets</span>-->
+                                <!--</div>-->
+                                <!--<div class="clearfix"></div>-->
+                            <!--</li>-->
+                            <!--<li class="list-group-item">-->
+                                <!--<div class="col-xs-3 col-sm-6 col-md-3">-->
+                                    <!--<img src="img/Likes/likes-2.png" alt="Group" class="img-responsive img-circle" />-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-9 col-sm-6">-->
+                                    <!--<span class="name">Html 5 live</span>-->
+                                <!--</div>-->
+                                <!--<div class="clearfix"></div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>&lt;!&ndash; end groups&ndash;&gt;-->
             </div><!-- end left content-->
             <!-- right  content-->
             <div class="profile-info col-md-8">
                 <div class="panel">
                     <form>
-                        <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
+                        <textarea ng-model="postContent" id = "postBlock" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
                     </form>
                     <div class="panel-footer">
-                        <button class="btn btn-danger pull-right">Post</button>
+                        <button ng-click="publishPost()" class="btn btn-danger pull-right">Post</button>
                         <ul class="nav nav-pills">
                             <li>
-                                <a href="#"><i class="fa fa-map-marker"></i></a>
+                                <a href=""><i class="fa fa-map-marker"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-camera"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class=" fa fa-film"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-microphone"></i></a>
+                                <a type="file" ngf-select="onFileSelect($file)" ng-model="file" name="file" ngf-pattern="'image/*'"
+                                        ngf-accept="'image/*'" ngf-max-size="15MB" ><i class="fa fa-camera"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <!-- first post-->
-                <div class="panel panel-white post panel-shadow">
+
+                <div class="panel panel-white post panel-shadow" ng-repeat="post in myPosts" ng-show="post.length != 0">
                     <div class="post-heading">
                         <div class="pull-left image">
-                            <img src="{{profilePicture}}" class="avatar" alt="user profile image">
+                            <img ng-src={{profile.profilePic}} class="avatar" alt="user profile image">
                         </div>
                         <div class="pull-left meta">
                             <div class="title h5">
-                                <a href="#" class="post-user-name">Jonathan Smith</a>
-                                uploaded a photo.
+                                <a href="#" class="post-user-name">{{post.user.firstname}} {{post.user.lastname}}</a>
+                                made a post.
                             </div>
-                            <h6 class="text-muted time">5 seconds ago</h6>
+                            <h6 class="text-muted time">{{post.postTime}}</h6>
                         </div>
                     </div>
                     <div class="post-image">
-                        <img src="img/Post/manok.png" class="image show-in-modal" alt="image post">
+                        <img ng-src={{post.photo}} class="image show-in-modal" alt="image post">
                     </div>
                     <div class="post-description">
-                        <p>This is a short description</p>
+                        <p>{{post.titleContent}}</p>
                         <div class="stats">
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-thumbs-up icon"></i>228
+                            <a ng-click="increaseLikeCount(post.postid, post)" href="" class="stat-item">
+                                <i class="fa fa-thumbs-up icon"></i>{{post.likes}}
                             </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-retweet icon"></i>128
+                            <a ng-click="increaseShareCount(post.postid, post)" href="" class="stat-item">
+                                <i class="fa fa-retweet icon"></i>{{post.shares}}
                             </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-comments-o icon"></i>3
-                            </a>
+                            <!--<a href="#" class="stat-item">-->
+                                <!--<i class="fa fa-comments-o icon"></i>3-->
+                            <!--</a>-->
                         </div>
                     </div>
                     <div class="post-footer">
-                        <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
-                        <ul class="comments-list">
+                        <!--<input ng-enter="addComment(post.postid, post)" ng-model="commentTemp" class="form-control add-comment-input"-->
+                               <!--placeholder="Add a comment..." type="text">-->
+
+                        <form ng-submit="addComment(post.postid, post, commentTemp)" >
+
+                            <input type="text" ng-model="commentTemp" id="comment"
+                                   placeholder="Add a comment..." class="form-control add-comment-input" />
+
+                        </form>
+
+                        <ul class="comments-list"  ng-repeat="comment in post.comments" ng-show="comment.length != 0">
                             <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="img/Friends/guy-3.jpg" alt="avatar">
+                                <a class="pull-left">
+                                    <img class="avatar" ng-src={{comment.photo}} alt="avatar">
                                 </a>
                                 <div class="comment-body">
                                     <div class="comment-heading">
-                                        <h4 class="comment-user-name"><a href="#">Antony andrew lobghi</a></h4>
-                                        <h5 class="time">7 minutes ago</h5>
+                                        <h4 class="comment-user-name"><a href="#">{{comment.userName}}</a></h4>
+                                        <h5 class="time">{{comment.time}}</h5>
                                     </div>
-                                    <p>This is a comment bla bla bla</p>
+                                    <p>{{comment.content}}</p>
                                 </div>
-                            </li>
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="img/Friends/guy-2.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="comment-user-name"><a href="#">Jeferh Smith</a></h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>This is another comment bla bla bla</p>
-                                </div>
-                            </li>
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="img/Friends/woman-2.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="comment-user-name"><a href="#">Maria fernanda coronel</a></h4>
-                                        <h5 class="time">10 seconds ago</h5>
-                                    </div>
-                                    <p>Wow! so cool my friend</p>
-                                </div>
+
                             </li>
                         </ul>
+
                     </div>
-                </div><!-- first post-->
-                <!-- second post -->
-                <div class="panel panel-white post panel-shadow">
-                    <div class="post-heading">
-                        <div class="pull-left image">
-                            <img src="{{profilePicture}}" class="avatar" alt="user profile image">
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5">
-                                <a href="#" class="post-user-name">Jonathan Smith</a>
-                                made a post.
-                            </div>
-                            <h6 class="text-muted time">1 minute ago</h6>
-                        </div>
-                    </div>
-                    <div class="post-description">
-                        <p>Bootdey is a gallery of free snippets resources templates and utilities
-                            for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                        <div class="stats">
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-thumbs-up icon"></i>2
-                            </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-retweet icon"></i>12
-                            </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-comments-o icon"></i>3
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-footer">
-                        <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
-                        <ul class="comments-list">
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="img/Friends/guy-8.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="comment-user-name"><a href="#">Gavhin dahg martb</a></h4>
-                                        <h5 class="time">5 minutes ago</h5>
-                                    </div>
-                                    <p>This is a first comment</p>
-                                </div>
-                                <ul class="comments-list">
-                                    <li class="comment">
-                                        <a class="pull-left" href="#">
-                                            <img class="avatar" src="img/Friends/woman-5.jpg" alt="avatar">
-                                        </a>
-                                        <div class="comment-body">
-                                            <div class="comment-heading">
-                                                <h4 class="comment-user-name"><a href="#">Ryanah Haywofd</a></h4>
-                                                <h5 class="time">3 minutes ago</h5>
-                                            </div>
-                                            <p>Relax my friend</p>
-                                        </div>
-                                    </li>
-                                    <li class="comment">
-                                        <a class="pull-left" href="#">
-                                            <img class="avatar" src="img/Friends/woman-7.jpg" alt="avatar">
-                                        </a>
-                                        <div class="comment-body">
-                                            <div class="comment-heading">
-                                                <h4 class="comment-user-name"><a href="#">Maria dh heart</a></h4>
-                                                <h5 class="time">3 minutes ago</h5>
-                                            </div>
-                                            <p>Ok, cool.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- end second post -->
-                <!-- third post -->
-                <div class="panel panel-white post panel-shadow">
-                    <div class="post-heading">
-                        <div class="pull-left image">
-                            <img src="{{profilePicture}}" class="avatar" alt="user profile image">
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5">
-                                <a href="#" class="post-user-name">Jonathan Smith</a>
-                                made a post.
-                            </div>
-                            <h6 class="text-muted time">1 minute ago</h6>
-                        </div>
-                    </div>
-                    <div class="post-image">
-                        <img src="img/Post/place1-full.jpg" class="image show-in-modal" alt="image post">
-                    </div>
-                    <div class="post-description">
-                        <p>This is my new awesome photo, ok relax with my style, so cray</p>
-                        <div class="stats">
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-thumbs-up icon"></i>2
-                            </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-retweet icon"></i>12
-                            </a>
-                            <a href="#" class="stat-item">
-                                <i class="fa fa-comments-o icon"></i>3
-                            </a>
-                        </div>
-                    </div>
-                    <div class="post-footer">
-                        <input class="form-control add-comment-input" placeholder="Add a comment..." type="text">
-                        <ul class="comments-list">
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="img/Friends/guy-8.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="comment-user-name"><a href="#">Gavhin dahg martb</a></h4>
-                                        <h5 class="time">5 minutes ago</h5>
-                                    </div>
-                                    <p>This is a first comment</p>
-                                </div>
-                                <ul class="comments-list">
-                                    <li class="comment">
-                                        <a class="pull-left" href="#">
-                                            <img class="avatar" src="img/Friends/woman-5.jpg" alt="avatar">
-                                        </a>
-                                        <div class="comment-body">
-                                            <div class="comment-heading">
-                                                <h4 class="comment-user-name"><a href="#">Ryanah Haywofd</a></h4>
-                                                <h5 class="time">3 minutes ago</h5>
-                                            </div>
-                                            <p>Relax my friend</p>
-                                        </div>
-                                    </li>
-                                    <li class="comment">
-                                        <a class="pull-left" href="#">
-                                            <img class="avatar" src="img/Friends/woman-7.jpg" alt="avatar">
-                                        </a>
-                                        <div class="comment-body">
-                                            <div class="comment-heading">
-                                                <h4 class="comment-user-name"><a href="#">Maria dh heart</a></h4>
-                                                <h5 class="time">3 minutes ago</h5>
-                                            </div>
-                                            <p>Ok, cool.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- end third post -->
-                <div class="panel panel-white post-load-more panel-shadow text-center">
-                    <button class="btn btn-danger">
-                        <i class="fa fa-refresh"></i>Load More...
-                    </button>
-                </div>
+                </div><!-- first post -->
+
+                <!--<div class="panel panel-white post-load-more panel-shadow text-center">-->
+                    <!--<button class="btn btn-danger">-->
+                        <!--<i class="fa fa-refresh"></i>Load More...-->
+                    <!--</button>-->
+                <!--</div>-->
             </div><!--end right  content-->
         </div>
     </div>
