@@ -5,7 +5,7 @@
     angular
         .module("PennBook")
         .controller("PhotosController", PhotosController);
-    function PhotosController($scope, $rootScope, $location, $sessionStorage, Idle) {
+    function PhotosController($scope, $rootScope, $location, $sessionStorage, PostService, Idle) {
 
         if($sessionStorage.hasOwnProperty("user")){
             $scope.user = $sessionStorage.user;
@@ -25,29 +25,42 @@
                 $scope.profilePicture = "images/default-profile-pic.png";
                 $scope.profileName = "User Name";
             }
-        $scope.logout = logout;
+            $scope.logout = logout;
+                $scope.myPosts = [];
 
-        function logout(){
+            PostService.getAllPostsByUserId($scope.profile.userid).then(function(response){
 
-            var w = $(window).width();
+                angular.forEach(response, function(value, key){
 
-            delete $sessionStorage.user;
-            delete $sessionStorage.profile;
+                    $scope.myPosts.push({
+                        photo: value.photo
+                    })
 
-            delete $rootScope.user;
-            delete $rootScope.profile;
-            delete $scope.user;
-            delete $scope.profile;
+                });
 
-            console.log('after logout');
+            });
 
-            $location.url('#/login');
+            function logout(){
+
+                var w = $(window).width();
+
+                delete $sessionStorage.user;
+                delete $sessionStorage.profile;
+
+                delete $rootScope.user;
+                delete $rootScope.profile;
+                delete $scope.user;
+                delete $scope.profile;
+
+                console.log('after logout');
+
+                $location.url('#/login');
+
+            }
+            } else {
+                console.log("going back to login");
+                $location.url('/login');
+            }
 
         }
-        } else {
-            console.log("going back to login");
-            $location.url('/login');
-        }
-
-    }
 })();

@@ -74,163 +74,26 @@
                         <li><a href="#/profile/:userid"> <i class="fa fa-info-circle"></i> About</a></li>
                         <li class="active"><a href="#/friends"> <i class="fa fa-users"></i> Friends</a></li>
                         <li><a href="#/photos"> <i class="fa fa-file-image-o"></i> Photos</a></li>
-                        <li><a href="#/edit-profile/:userid"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li><a href="#/edit-profile/{{user._id}}"> <i class="fa fa-edit"></i> Edit profile</a></li>
                     </ul>
                 </div>
             </div>
             <div class="profile-info col-md-8">
-                <div class="col-md-5">
+                <div class="col-md-5" ng-repeat="friend in friends"
+                     ng-show="friend.length != 0">
                     <div class="widget-head-color-box lazur-bg p-lg text-center">
                         <div class="m-b-md">
-                            <small>Alex smith</small>
+                            <small>{{friend.user.firstname}} {{friend.user.lastname}}</small>
                         </div>
-                        <img src="img/Friends/guy-2.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
+                        <img src={{friend.profile.profilePic}} class="img-circle circle-border m-b-md" alt="profile">
                     </div>
                     <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
                         <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
                         <div class="text-right_">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box red-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Maria grouty</small>
-                        </div>
-                        <img src="img/Friends/woman-1.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box lazur-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Carolin Crekyt</small>
-                        </div>
-                        <img src="img/Friends/woman-2.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box red-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Fernan Crespa</small>
-                        </div>
-                        <img src="img/Friends/guy-5.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box lazur-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Carmen sneida</small>
-                        </div>
-                        <img src="img/Friends/woman-8.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box red-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>maria smith</small>
-                        </div>
-                        <img src="img/Friends/woman-1.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box lazur-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Alex smith</small>
-                        </div>
-                        <img src="img/Friends/woman-8.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="widget-head-color-box lazur-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <small>Alex smith</small>
-                        </div>
-                        <img src="img/Friends/woman-1.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                        <div>
-                            <span>100 Friends</span> |
-                            <span>350 Photos</span>
-                        </div>
-                    </div>
-                    <div class="widget-text-box">
-                        <a class="btn btn-xs btn-default"><i class="fa fa-thumbs-up"></i> Like </a>
-                        <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> Add</a>
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
-                        <div class="text-right_">
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div><!--End Timeline content -->

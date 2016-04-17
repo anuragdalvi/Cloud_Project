@@ -60,7 +60,7 @@ module.exports = function(app,mongoose,db,ProfileSchema){
             friends:updateProfile.friends, posts:updateProfile.posts, messages:updateProfile.messages,
             notifications:updateProfile.notifications, phone:updateProfile.phone, country:updateProfile.country,
             occupation:updateProfile.occupation, friendRequests:updateProfile.friendRequests,
-            dateOfBirth:updateProfile.dateOfBirth}},function(err , profile){
+            dateOfBirth:updateProfile.dateOfBirth, privacy:updateProfile.privacy}},function(err , profile){
 
             ProfileModel.findById(updateProfile._id, function(err , profile) {
 
