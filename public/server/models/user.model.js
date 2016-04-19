@@ -13,8 +13,9 @@ module.exports = function(app,mongoose,db,UserSchema){
         create: create,
         getAllUsers: getAllUsers,
         findById: findById,
-        findUserByUsername: findUserByUsername,
+        findUserByName: findUserByName,
         findUserByCredentials: findUserByCredentials,
+        findUserByUsername: findUserByUsername,
         update: update,
         removeUserById: removeUserById,
         findUserByUserId:findUserByUserId,
@@ -24,6 +25,17 @@ module.exports = function(app,mongoose,db,UserSchema){
     };
 
     return api;
+
+    function findUserByUsername( username){
+
+
+        var deferred = q.defer();
+        UserModel.find({username:username},function(err , result){
+            deferred.resolve(result);
+        });
+        return deferred.promise;
+
+    }
 
     function parsePassword(password){
         var deferred = q.defer();
@@ -51,6 +63,7 @@ module.exports = function(app,mongoose,db,UserSchema){
 
     function findUserByUserId(userid){
         console.log('i reached find User By userid model');
+
         var deferred = q.defer();
 
         UserModel.findById(userid,function(err , user){
@@ -114,12 +127,13 @@ module.exports = function(app,mongoose,db,UserSchema){
 
     /* specific to User Object*/
 
-    function findUserByUsername( username){
+    function findUserByName( name){
         console.log('i reached find User By Username model');
 
         var deferred = q.defer();
-        UserModel.find({username:username},function(err , result){
+        UserModel.find({firstname:name},function(err , result){
             deferred.resolve(result);
+            console.log(result + " by name result");
         });
         return deferred.promise;
 

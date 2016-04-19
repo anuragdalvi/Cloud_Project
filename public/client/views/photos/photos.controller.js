@@ -28,17 +28,18 @@
             $scope.logout = logout;
                 $scope.myPosts = [];
 
-            PostService.getAllPostsByUserId($scope.profile.userid).then(function(response){
+                PostService.getAllPostsByUserId($scope.profile.userid).then(function (response) {
 
-                angular.forEach(response, function(value, key){
+                    angular.forEach(response, function (value, key) {
 
-                    $scope.myPosts.push({
-                        photo: value.photo
-                    })
+                        $scope.myPosts.push({
+                            photo: value.photo
+                        })
+
+                    });
 
                 });
 
-            });
 
             function logout(){
 

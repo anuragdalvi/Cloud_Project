@@ -14,6 +14,7 @@ module.exports = function (app,model) {
     app.delete('/api/user/:id',removeUserById);
     app.get('/api/users/admin',getAllUsers);
     app.get('/api/password/:pwd', parsePassword);
+    app.get('/api/finduser/:name', findUserByName);
     //app.put('/api/user/:id/follower',addFollower);
 
 
@@ -26,6 +27,18 @@ module.exports = function (app,model) {
             .then(function(result){
 
                 res.json(result);
+            });
+
+    }
+
+    function findUserByName(req, res){
+
+        var name = req.params.name;
+
+        model
+            .findUserByName(name)
+            .then(function(user){
+                res.json(user);
             });
 
     }

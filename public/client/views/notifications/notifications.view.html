@@ -28,12 +28,7 @@
             <div class="col-md-5 col-sm-4">
                 <form class="navbar-form">
                     <div class="form-group" style="display:inline;">
-                        <div class="input-group" style="display:table;">
-                            <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
-			        <span class="input-group-addon" style="width:1%;">
-			          <span class="glyphicon glyphicon-search"></span>
-			        </span>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -67,206 +62,30 @@
                     <a href="#/about/{{user._id}}">{{profileName}}</a>
                 </div>
             </div>
-
-            <!-- friends -->
-            <div class="panel panel-danger panel-friends">
-                <div class="panel-heading">
-                    <a href="#/friends" class="pull-right">View all&nbsp;<i class="fa fa-share-square-o"></i></a>
-                    <h3 class="panel-title">Friends</h3>
-                </div>
-                <div class="panel-body text-center">
-                    <ul class="friends">
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/woman-4.jpg" title="Jhoanath matew" class="img-responsive tip">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/woman-3.jpg" title="Martha creawn" class="img-responsive tip">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/guy-2.jpg" title="Jeferh smith" class="img-responsive tip">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/woman-9.jpg" title="Linda palma" class="img-responsive tip">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/guy-9.jpg" title="Lindo polmo" class="img-responsive tip">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="img/Friends/guy-5.jpg" title="andrew cartson" class="img-responsive tip">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div><!-- end friends -->
-            <!-- People You May Know -->
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">People You May Know</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="notification-row">
-                        <div class="notification-padding">
-                            <div class="sidebar-fa-image img-may-know">
-                                <img class="notifications" src="img/Friends/guy-2.jpg">
-                            </div>
-                            <div class="sidebar-fa-text">
-                                <b><a href="#">Carlos marthur</a></b><br>
-                                <a class="btn btn-danger btn-xs" href=""><i class="fa fa-user-plus">Add Friend</i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notification-row">
-                        <div class="notification-padding">
-                            <div class="sidebar-fa-image img-may-know">
-                                <img class="notifications" src="img/Friends/woman-1.jpg">
-                            </div>
-                            <div class="sidebar-fa-text">
-                                <b><a href="#">Maria gustami</a></b><br>
-                                <a class="btn btn-danger btn-xs" href=""><i class="fa fa-user-plus">Add Friend</i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notification-row">
-                        <div class="notification-padding">
-                            <div class="sidebar-fa-image img-may-know">
-                                <img class="notifications" src="img/Friends/woman-2.jpg">
-                            </div>
-                            <div class="sidebar-fa-text">
-                                <b><a href="#">Angellina mcblown</a></b><br>
-                                <a class="btn btn-danger btn-xs" href=""><i class="fa fa-user-plus">Add Friend</i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End People You May Know -->
         </div><!-- end left content -->
 
         <!-- notification list-->
         <div class="col-md-7 no-paddin-xs">
-            <div class="panel panel-white post panel-shadow">
+            <div class="panel panel-white post panel-shadow" ng-repeat="notification in myNotifications"
+                 ng-show="notification.length != 0">
                 <div class="post-heading">
                     <div class="pull-left image">
-                        <img src="img/Friends/guy-3.jpg" class="avatar" alt="user profile image">
+                        <img ng-src={{notification.photo}} class="avatar" alt="user profile image">
                     </div>
                     <div class="pull-left meta">
                         <div class="title h5">
-                            <a href="#" class="post-user-name">Jonathan Smith</a>
-                            liked your <a href="#">Post</a>
+                            <a href="#" class="post-user-name">{{notification.notification.initiatorUserName}}</a>
+                            {{notification.notification.activity}}<a href={{notification.notification.elementLink}}>{{notification.notification.elementKind}}</a>
                         </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
+                        <h6 class="text-muted time">{{notification.notification.time}}</h6>
                     </div>
                 </div>
             </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/guy-2.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Deyman Bejarano</a>
-                            shared your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/woman-2.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Denny lawer</a>
-                            shared your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/woman-3.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Martha cargrot</a>
-                            liked your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/woman-4.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Carla dorla</a>
-                            liked your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/woman-5.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Maria Bejarano</a>
-                            liked your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="img/Friends/guy-3.jpg" class="avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#" class="post-user-name">Jonathan Smith</a>
-                            liked your <a href="#">Post</a>
-                        </div>
-                        <h6 class="text-muted time">5 seconds ago</h6>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="panel panel-white post-load-more panel-shadow text-center">
-                <button class="btn btn-danger">
-                    <i class="fa fa-refresh"></i>Load More...
-                </button>
-            </div>
+            <!--<div class="panel panel-white post-load-more panel-shadow text-center">-->
+                <!--<button class="btn btn-danger">-->
+                    <!--<i class="fa fa-refresh"></i>Load More...-->
+                <!--</button>-->
+            <!--</div>-->
         </div><!-- notification list-->
     </div>
 </div>

@@ -5,11 +5,13 @@ module.exports = function (mongoose,db) {
 
     var MessageSchema = new mongoose.Schema({
         userid:String,
+        username:String,
         senderid:String,
-        text:String,
+        content:String,
         replies:[{
             userid:String,
-            text:String,
+            username:String,
+            content:String,
             time:{ type : Date, default: Date.now }
         }],
         time:{ type : Date, default: Date.now },
