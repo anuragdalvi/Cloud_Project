@@ -5,7 +5,7 @@
     angular
         .module("PennBook")
         .controller("NotificationController", NotificationController);
-    function NotificationController($scope, $rootScope, $location, $sessionStorage, Idle) {
+    function NotificationController($scope, $rootScope, $location, $sessionStorage, NotificationService, ProfileService, Idle) {
 
         if($sessionStorage.hasOwnProperty("user")){
             $scope.user = $sessionStorage.user;
@@ -25,26 +25,43 @@
                 $scope.profilePicture = "images/default-profile-pic.png";
                 $scope.profileName = "User Name";
             }
-        $scope.logout = logout;
+            $scope.logout = logout;
+            $scope.myNotifications = [];
 
-        function logout(){
+            NotificationService.getAllNotificationsByUserId($scope.user._id).then(function(response){
 
-            var w = $(window).width();
+                angular.forEach(response, function(value, key){
+                    var notification = {
+                        photo:"",
+                        notification: value
+                    };
+                    ProfileService.getProfileByUserId(value.initiatorid).then(function(prof){
+                        notification.photo = prof[0].profilePic;
+                        $scope.myNotifications.push(notification);
+                    });
+                });
 
-            delete $sessionStorage.user;
-            delete $sessionStorage.profile;
-
-            delete $rootScope.user;
-            delete $rootScope.profile;
-            delete $scope.user;
-            delete $scope.profile;
-
-            console.log('after logout');
-
-            $location.url('#/login');
+            });
 
 
-        }
+            function logout(){
+
+                var w = $(window).width();
+
+                delete $sessionStorage.user;
+                delete $sessionStorage.profile;
+
+                delete $rootScope.user;
+                delete $rootScope.profile;
+                delete $scope.user;
+                delete $scope.profile;
+
+                console.log('after logout');
+
+                $location.url('#/login');
+
+
+            }
     } else {
         console.log("going back to login");
         $location.url('/login');

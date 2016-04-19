@@ -115,14 +115,14 @@
 
                             var newProfile = {userid:newUser._id,
                                 profilePic:"images/default-profile-pic.png",
-                                friends:"",
-                                posts:"",
-                                messages:"",
-                                notifications:"",
+                                friends:[],
+                                posts:[],
+                                messages:[],
+                                notifications:[],
                                 phone:"",
                                 country:"",
                                 occupation:"",
-                                friendRequests:"",
+                                friendRequests:[],
                                 dateOfBirth:"12/10/1990"
                             };
 

@@ -18,6 +18,7 @@
         var service =
         {
             findUserByUsername: findUserByUsername ,
+            findUserByName: findUserByName ,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
             findUserByUserId: findUserByUserId,
             createUser: createUser,
@@ -44,6 +45,17 @@
             return deferred.promise;
         }
 
+        function findUserByUsername(username)
+        {
+            var deferred = $q.defer();
+            $http.get("/api/user?username="+username)
+                .success(function(response){
+
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
+
         function getAllUsers(){
 
             var deferred = $q.defer();
@@ -56,10 +68,10 @@
 
 
         }
-        function findUserByUsername(username)
+        function findUserByName(name)
         {
             var deferred = $q.defer();
-            $http.get("/api/user?username="+username)
+            $http.get("/api/finduser/"+name)
                 .success(function(response){
 
                     deferred.resolve(response);

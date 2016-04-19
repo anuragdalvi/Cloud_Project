@@ -29,12 +29,7 @@
             <div class="col-md-5 col-sm-4">
                 <form class="navbar-form">
                     <div class="form-group" style="display:inline;">
-                        <div class="input-group" style="display:table;">
-                            <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
-              <span class="input-group-addon" style="width:1%;">
-                <span class="glyphicon glyphicon-search"></span>
-              </span>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -81,14 +76,14 @@
             <div class="profile-info col-md-8">
                 <div class="col-md-5" ng-repeat="friend in friends"
                      ng-show="friend.length != 0">
-                    <div class="widget-head-color-box lazur-bg p-lg text-center">
+                    <a ng-click="goToGuest(friend)" href="" ><div class="widget-head-color-box lazur-bg p-lg text-center">
                         <div class="m-b-md">
-                            <small>{{friend.user.firstname}} {{friend.user.lastname}}</small>
+                         <small>{{friend.user.firstname}} {{friend.user.lastname}}</small>
                         </div>
-                        <img src={{friend.profile.profilePic}} class="img-circle circle-border m-b-md" alt="profile">
-                    </div>
+                        <img ng-src={{friend.profile.profilePic}} class="img-circle circle-border m-b-md" alt="profile">
+                    </div></a>
                     <div class="widget-text-box">
-                        <a class="btn btn-xs btn-success"><i class="fa fa fa-envelope"></i> Message</a>
+                        <a ng-click="goToGuest(friend)" class="btn btn-xs btn-success" style="width:100%"><i class="fa fa fa-envelope"></i> Message</a>
                         <div class="text-right_">
                         </div>
                     </div>
