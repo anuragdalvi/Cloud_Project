@@ -1,16 +1,19 @@
 /**
+ * Created by Anantha on 4/18/16.
+ */
+/**
  * Created by Anantha on 3/24/16.
  */
 (function () {
     angular
         .module("PennBook")
-        .controller("AboutController", AboutController);
-    function AboutController($scope, $rootScope, $location, $sessionStorage,PostService, UserService,
-                             ProfileService, CommentService, NotificationService, Idle) {
+        .controller("GuestUserController", GuestUserController);
+    function GuestUserController($scope, $rootScope, $location, $sessionStorage,PostService, UserService,
+                             ProfileService, CommentService, NotificationService, MessageService, Idle) {
 
         if($sessionStorage.hasOwnProperty("user")){
-            $scope.user = $sessionStorage.user;
-            $scope.profile = $sessionStorage.profile;
+            $scope.user = $sessionStorage.guestUser;
+            $scope.profile = $sessionStorage.guestProfile;
             $scope.location = "";
             $scope.profilePicture = "";
             $scope.profileName = "";
@@ -28,7 +31,6 @@
             }
 
             $scope.logout = logout;
-            $scope.publishPost = publishPost;
             $scope.postContent = "";
             $scope.postImage = "";
             $scope.myPosts = [];
@@ -38,30 +40,73 @@
             $scope.increaseShareCount = increaseShareCount;
             $scope.addComment = addComment;
             $scope.commentTemp = "";
-            $scope.friends = [];
             $scope.file = "";
+            $scope.friendRequestAdd = friendRequestAdd;
+            $scope.isFriend = $sessionStorage.isFriend;
+            $scope.sendMessage = sendMessage;
+            $scope.messageContent = "";
 
-            if($scope.profile.friends.length > 0) {
+            function sendMessage(){
 
-                    angular.forEach($scope.profile.friends, function (userid, key) {
-                        if (userid.length != 0) {
+                var message = {
+                    userid:$sessionStorage.guestUser._id,
+                    username:$sessionStorage.user.firstname + " " + $sessionStorage.user.lastname,
+                    senderid:$sessionStorage.user._id,
+                    content:document.getElementById('messageBlock').value,
+                    replies:[]
+                }
 
-                            ProfileService.getProfileByUserId(userid._id).then(function (prof) {
+                MessageService.createMessage(message).then(function(){
+                    var notification = {
 
-                                UserService.findUserByUserId(userid._id).then(function (usr) {
-                                    var friend = {
-                                        user: usr,
-                                        profile: prof
-                                    }
-                                    $scope.friends.push(friend);
-                                });
+                        userid:$scope.profile.userid,
+                        // Participated friend
+                        initiatorid: $sessionStorage.user._id,
+                        //activity number would be standardized on activity on a post to 1-like, 2-comment, 3-shared
+                        initiatorUserName: $sessionStorage.user.firstname + " " + $sessionStorage.user.lastname,
+                        activity:"Sent you a ",
+                        elementKind:"Message",
+                        elementLink:"#/messages",
+                        postid:""
 
-                            });
-                        }
+                    }
 
+                    NotificationService.createNotification(notification).then(function(response){
+                        document.getElementById('messageBlock').value = "";
                     });
 
+
+                });
+
             }
+
+            function friendRequestAdd(){
+
+                $scope.profile.friendRequests.push($sessionStorage.user._id);
+
+                ProfileService.updateProfile($scope.profile).then(function (response) {
+                    var notification = {
+
+                        userid:$scope.profile.userid,
+                        // Participated friend
+                        initiatorid: $sessionStorage.user._id,
+                        //activity number would be standardized on activity on a post to 1-like, 2-comment, 3-shared
+                        initiatorUserName: $sessionStorage.user.firstname + " " + $sessionStorage.user.lastname,
+                        activity:"Sent you ",
+                        elementKind:"Friend Request",
+                        elementLink:"#/profile/" + $scope.user._id,
+                        postid:""
+
+                    }
+
+                    NotificationService.createNotification(notification).then(function(response){
+
+                    });
+                })
+
+            }
+
+
 
             PostService.getAllPostsByUserId($scope.profile.userid).then(function(response){
 
@@ -80,15 +125,15 @@
                     var commentContents = [];
                     var post = response;
 
-                        $scope.myPosts.push({
-                            postid: key._id,
-                            userid: key.userid,
-                            titleContent: key.titleContent,
-                            comments: [],
-                            likes: key.likes,
-                            shares: key.shares,
-                            postTime: key.postTime,
-                            photo: key.photo
+                    $scope.myPosts.push({
+                        postid: key._id,
+                        userid: key.userid,
+                        titleContent: key.titleContent,
+                        comments: [],
+                        likes: key.likes,
+                        shares: key.shares,
+                        postTime: key.postTime,
+                        photo: key.photo
                     });
                     if($scope.myphotos.length < 6 && key.photo.length > 1){
                         $scope.myphotos.push(key.photo);
@@ -138,7 +183,7 @@
                     initiatorUserName: $scope.profileName,
                     activity:"Commented on your ",
                     elementKind:"Post",
-                    elementLink:"#/about/" + post.user._id,
+                    elementLink:"#/about/" + $scope.user._id,
                     postid:postid
 
                 }
@@ -173,7 +218,7 @@
                         initiatorUserName: $scope.profileName,
                         activity:"Liked your ",
                         elementKind:"Post",
-                        elementLink:"#/about/" + post.userid,
+                        elementLink:"#/about/" + $scope.user._id,
                         postid:postid
 
                     }
@@ -207,7 +252,7 @@
                         initiatorUserName: $scope.profileName,
                         activity:"Shared your ",
                         elementKind:"Post",
-                        elementLink:"#/about/" + post.userid,
+                        elementLink:"#/about/" + $scope.user._id,
                         postid:postid
 
                     }
@@ -218,7 +263,23 @@
 
                 });
 
+                var notification = {
 
+                    userid:post.userid,
+                    // Participated friend
+                    initiatorid: $scope.user._id,
+                    //activity number would be standardized on activity on a post to 1-like, 2-comment, 3-shared
+                    initiatorUserName: $scope.profileName,
+                    activity:"Shared your ",
+                    elementKind:"Post",
+                    elementLink:"#/about/" + $scope.user._id,
+                    postid:postid
+
+                }
+
+                NotificationService.createNotification(notification).then(function(response){
+
+                });
 
             }
 
@@ -247,31 +308,6 @@
 
             }
 
-            function publishPost(){
-                var post = {
-                    userid:$scope.user._id,
-                    titleContent:$scope.postContent,
-                    comments:[],
-                    likes:0,
-                    shares:0,
-                    //postTime:{ type : Date, default: Date.now },
-                    photo:$scope.postImage
-                }
-                PostService.createPost(post).then(function(response){
-                    console.log(response);
-                    var newPost = response;
-                    newPost["postid"] = newPost._id;
-                    newPost["commentContents"] = [];
-                    $scope.myPosts.unshift(newPost);
-                    $scope.postContent = "";
-                    $scope.postImage = "";
-
-                });
-
-                document.getElementById('postBlock').value = "";
-
-            }
-
             function logout(){
 
                 var w = $(window).width();
@@ -283,7 +319,7 @@
                 delete $rootScope.profile;
                 delete $scope.user;
                 delete $scope.profile;
-                $sessionStorage.$reset();
+
 
                 console.log('after logout');
 
@@ -291,10 +327,10 @@
 
 
             }
-            } else {
-                console.log("going back to login");
-                $location.url('/login');
-            }
+        } else {
+            console.log("going back to login");
+            $location.url('/login');
+        }
 
     }
 })();

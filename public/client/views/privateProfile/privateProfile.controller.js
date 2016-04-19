@@ -16,22 +16,23 @@
             $scope.requests = [];
             $scope.friendRequestResponse = friendRequestResponse;
 
-            angular.forEach($scope.profile.requests, function(value, key){
+            angular.forEach($scope.profile.friendRequests, function(value, key){
 
-                var username = "";
+                var request = {
 
-                UserService.findUserByUserId(value.userid).then(function(response){
-                    username = response.username;
-                });
+                    user: "",
+                    profile: ""
 
-                ProfileService.getProfileByUserId(value.userid).then(function(response){
+                }
 
-                    requests.push({
-                        picture: response.profilePic,
-                        username: username,
-                        userid: response.userid
+                UserService.findUserByUserId(value._id).then(function(response){
+                    request.user = response;
+                    ProfileService.getProfileByUserId(value._id).then(function(response){
+
+                        request.profile = response[0];
+                        $scope.requests.push(request);
+
                     });
-
                 });
 
             });
@@ -55,36 +56,37 @@
             function friendRequestResponse(request, val){
 
                 if(val == 1){
+
                     for(var i=0; i<$scope.profile.friendRequests.length; i++){
-                        if($scope.profile.friendRequests[i] == request.userid){
+                        if($scope.profile.friendRequests[i]._id == request.user._id){
                             $scope.profile.friendRequests.splice(i, 1);
-                            break;
                         }
                     }
 
-                    $scope.profile.friends.push({
-                        userid: request.userid
-                    });
+                    $scope.profile.friends.push(request.user._id);
 
 
                 } else if(val == 0) {
+
                     for(var i=0; i<$scope.profile.friendRequests.length; i++){
-                        if($scope.profile.friendRequests[i] == request.userid){
+                        if($scope.profile.friendRequests[i]._id == request.user._id){
                             $scope.profile.friendRequests.splice(i, 1);
-                            break;
                         }
                     }
-
                 }
 
                 ProfileService.updateProfile($scope.profile).then(function(response){
                     $sessionStorage.profile = response;
-                    for(var i=0; i<requests.length; i++){
-                        if(requests[i].userid == request.userid){
-                            requests.splice(i, 1);
-                            break;
+                    ProfileService.updateProfile(request.profile).then(function(response){
+
+                        for(var i=0; i<$scope.requests.length; i++){
+                            if($scope.requests[i].user._id == request.user._id){
+                                $scope.requests.splice(i, 1);
+                                break;
+                            }
                         }
-                    }
+
+                    });
                 });
 
                 console.log("friend added successfully");

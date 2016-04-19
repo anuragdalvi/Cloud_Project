@@ -9,7 +9,11 @@ module.exports = function (mongoose,db) {
         // Participated friend
         initiatorid:String,
         //activity number would be standardized on activity on a post to 1-like, 2-comment, 3-shared
-        activityNumber:Number,
+        initiatorUserName: String,
+        time:{ type : Date, default: Date.now },
+        activity:String,
+        elementKind:String,
+        elementLink:String,
         postid:String
 
     },{collection:"notifications"});

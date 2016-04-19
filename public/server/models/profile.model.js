@@ -53,21 +53,38 @@ module.exports = function(app,mongoose,db,ProfileSchema){
 
         var deferred = q.defer();
         var updateProfile = profile;
+        console.log(profile);
 
         console.log('i reached update profile model');
 
         ProfileModel.findByIdAndUpdate(updateProfile._id, {$set:{userid:updateProfile.userid,profilePic:updateProfile.profilePic,
-            friends:updateProfile.friends, posts:updateProfile.posts, messages:updateProfile.messages,
-            notifications:updateProfile.notifications, phone:updateProfile.phone, country:updateProfile.country,
-            occupation:updateProfile.occupation, friendRequests:updateProfile.friendRequests,
-            dateOfBirth:updateProfile.dateOfBirth, privacy:updateProfile.privacy}},function(err , profile){
+            phone:updateProfile.phone, country:updateProfile.country, occupation:updateProfile.occupation,
+            dateOfBirth:updateProfile.dateOfBirth, privacy:updateProfile.privacy}},function(err , result){
 
-            ProfileModel.findById(updateProfile._id, function(err , profile) {
+            ProfileModel.findById(updateProfile._id, function(err , res) {
 
-                console.log('resp');
-               // console.log(profile);
-                deferred.resolve(profile);
+                res.friends = [];
+                res.friendRequests = [];
 
+                for(var i=0; i<profile.friends.length; i++){
+                    var id = profile.friends[i];
+                    res.friends.push(id);
+                }
+
+
+                for(var i=0; i<profile.friendRequests.length; i++){
+                    var id = profile.friendRequests[i];
+                    res.friendRequests.push(id);
+                }
+
+                res.save(function(err, prof){
+                    console.log(err + " after save");
+                    ProfileModel.findById(updateProfile._id, function(err , resProf) {
+                        console.log('resp');
+                        console.log(resProf);
+                        deferred.resolve(resProf);
+                    });
+                });
             });
 
         });

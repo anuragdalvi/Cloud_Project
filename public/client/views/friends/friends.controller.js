@@ -26,19 +26,29 @@
                 $scope.profileName = "User Name";
             }
             $scope.logout = logout;
-            $scope.friends = getFriends();
+            $scope.friends = [];
+            $scope.goToGuest = goToGuest;
 
-            function getFriends(){
+            function goToGuest(friend){
+
+                $sessionStorage.isFriend = 1;
+                $sessionStorage.guestProfile = friend.profile;
+                $sessionStorage.guestUser = friend.user;
+                $location.url('/guest');
+
+            }
+
+            if($scope.profile.friends.length > 0){
 
                 angular.forEach($scope.profile.friends, function(userid, key){
                     if(userid.length != 0){
 
-                        ProfileService.getProfileByUserId(userid).then(function(prof){
+                        ProfileService.getProfileByUserId(userid._id).then(function(prof){
 
-                            UserService.findUserByUserId(userid).then(function(usr){
+                            UserService.findUserByUserId(userid._id).then(function(usr){
                                 var friend = {
                                     user: usr,
-                                    profile: prof
+                                    profile: prof[0]
                                 }
                                 $scope.friends.push(friend);
                             });

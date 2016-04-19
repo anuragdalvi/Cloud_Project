@@ -27,12 +27,7 @@
             <div class="col-md-5 col-sm-4">
                 <form class="navbar-form">
                     <div class="form-group" style="display:inline;">
-                        <div class="input-group" style="display:table;">
-                            <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
-			        <span class="input-group-addon" style="width:1%;">
-			          <span class="glyphicon glyphicon-search"></span>
-			        </span>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -136,13 +131,9 @@
                     <div class="col-md-5" ng-repeat="request in requests" ng-show="request.length != 0">
                         <div class="widget-head-color-box lazur-bg p-lg text-center">
                             <div class="m-b-md">
-                                <small>Alex smith</small>
+                                <small>{{request.user.firstname}} {{request.user.lastname}}</small>
                             </div>
-                            <img src="img/Friends/guy-2.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                            <div>
-                                <span>100 Friends</span> |
-                                <span>350 Photos</span>
-                            </div>
+                            <img ng-src={{request.profile.profilePic}} class="img-circle circle-border m-b-md" alt="profile">
                         </div>
                         <div class="widget-text-box">
                             <a ng-click="friendRequestResponse(request, 1)" class="btn btn-xs btn-default"> Accept </a>

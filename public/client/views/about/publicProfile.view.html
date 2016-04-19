@@ -26,12 +26,7 @@
             <div class="col-md-5 col-sm-4">
                 <form class="navbar-form">
                     <div class="form-group" style="display:inline;">
-                        <div class="input-group" style="display:table;">
-                            <input class="form-control" name="search" placeholder="Search..." autocomplete="off" type="text">
-			        <span class="input-group-addon" style="width:1%;">
-			          <span class="glyphicon glyphicon-search"></span>
-			        </span>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -83,9 +78,9 @@
                     </div>
                     <div class="panel-body text-center">
                         <ul class="friends" >
-                            <li ng-repeat="friend in friends | limitTo: 6" ng-show="friend.profile.profilePic.length != 0">
+                            <li ng-repeat="friend in friends | limitTo: 6" ng-show="friend.profile[0].profilePic.length != 0">
                                 <a href="#/friends">
-                                    <img ng-src={{friend.profile.profilePic}} class="img-responsive tip">
+                                    <img ng-src={{friend.profile[0].profilePic}} class="img-responsive tip">
                                 </a>
                             </li>
                         </ul>
@@ -99,9 +94,9 @@
                     </div>
                     <div class="panel-body text-center" >
                         <ul class="photos" >
-                            <li ng-repeat="post in myPosts | limitTo: 6" ng-show="post.photo.length != 0">
+                            <li ng-repeat="photo in myphotos | limitTo: 6" ng-if="photo.length > 0">
                                 <a href="#/photos">
-                                    <img ng-src={{post.photo}} alt="photo 1" class="img-responsive show-in-modal">
+                                    <img ng-src={{photo}} alt="photo 1" class="img-responsive show-in-modal">
                                 </a>
                             </li>
                         </ul>
@@ -204,7 +199,8 @@
             <div class="profile-info col-md-8">
                 <div class="panel">
                     <form>
-                        <textarea ng-model="postContent" id = "postBlock" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
+                        <textarea ng-model="postContent" id = "postBlock" placeholder="Whats in your mind today?" rows="2"
+                                  class="form-control input-lg p-text-area"></textarea>
                     </form>
                     <div class="panel-footer">
                         <button ng-click="publishPost()" class="btn btn-danger pull-right">Post</button>

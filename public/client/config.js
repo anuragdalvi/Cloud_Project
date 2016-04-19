@@ -54,6 +54,10 @@
                 templateUrl: "views/privateProfile/editProfile.view.html",
                 controller: "EditProfileController"
             })
+            .when("/guest",{
+                templateUrl: "views/guestUser/guestuser.view.html",
+                controller: "GuestUserController"
+            })
             .otherwise({
                 redirectTo: "/login"
             });
