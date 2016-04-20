@@ -23,6 +23,30 @@
         $scope.usernamevalid = false;
         $scope.register = register;
 
+        //$scope.create = create(1);
+        //
+        //function create(i) {
+        //
+        //
+        //        var newUser =
+        //        {
+        //            username : "a"+ i+"@a.com",
+        //            password : "a" + i,
+        //            email : "a"+ i+"@a.com",
+        //            firstname:"a" + i,
+        //            lastname:"a" + i
+        //        };
+        //
+        //        UserService.createUser(newUser).then(function (response) {
+        //            if(i < 10000) {
+        //
+        //                create(i+1);
+        //            }
+        //
+        //        });
+        //
+        //}
+
         // toggle between login and register
         function toggle() {
             console.log("to toggle");
