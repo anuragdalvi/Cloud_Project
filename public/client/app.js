@@ -3,27 +3,33 @@
  */
 (function(){
 
-    angular
-        .module("PennBook", ["ngRoute",'ngSanitize', 'ngFileUpload', 'ngIdle', 'ngStorage'])
+    var app = angular
+        .module("PennBook", ["ngRoute",'ngSanitize', 'ngFileUpload', 'ngIdle', 'ngStorage', 'ngSocket'])
         .config(['KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
             IdleProvider.idle(600); // 10 minutes idle
             IdleProvider.timeout(30); // after 30 seconds idle, time the user out
-            KeepaliveProvider.interval(600); // 10 minute keep-alive ping
+            KeepaliveProvider.interval(300); // 5 minute keep-alive ping
         }])
-        .run(['Idle', function(Idle) {
+        .run(function(Idle, $rootScope, $sessionStorage, $window) {
             Idle.watch();
-        }])
-        .run(function($rootScope, $window) {
+            console.log( "Session logged in");
             $rootScope.$on('IdleTimeout', function () {
                 if($rootScope.hasOwnProperty("user")){
+                    //$socket.close();
+                    console.log("deleted root scope");
+                    delete $sessionStorage.user;
                     delete $rootScope.user;
                     delete $rootScope.profile;
-                    console.log("deleted root scope");
+                    delete $sessionStorage.profile;
+
                     //$location.url('/login');
+                   // $window.location.reload();
+                    $window.location.replace('#/');
                     $window.location.reload();
                 }
-
             });
+
+
         });
 
 })();

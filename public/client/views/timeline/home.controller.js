@@ -44,6 +44,7 @@
             $scope.searchText = "";
             $scope.goToGuest = goToGuest;
 
+
             function goToGuest(commonfriend){
 
                 $sessionStorage.guestUser = commonfriend.user;
@@ -351,7 +352,7 @@
 
                 console.log('after logout');
 
-                $location.url('#/login');
+                $location.url('/login');
 
 
             }
