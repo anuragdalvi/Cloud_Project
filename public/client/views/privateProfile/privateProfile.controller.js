@@ -64,6 +64,7 @@
                     }
 
                     $scope.profile.friends.push(request.user._id);
+                    request.profile.friends.push($scope.profile.userid);
 
 
                 } else if(val == 0) {

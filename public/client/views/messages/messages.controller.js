@@ -97,11 +97,20 @@
                 msg.replies.push(reply);
 
                 MessageService.updateMessageForReply(msg._id, msg).then(function(response){
+
+                    var notUid = msg.userid;
+                    var notinitId = msg.senderid;
+
+                    if(msg.userid ==  $scope.user._id){
+                        notUid = msg.senderid;
+                        notinitId = msg.userid;
+                    }
                     var notification = {
 
-                        userid:msg.userid,
+
+                        userid:notUid,
                         // Participated friend
-                        initiatorid: $scope.user._id,
+                        initiatorid: notinitId,
                         //activity number would be standardized on activity on a post to 1-like, 2-comment, 3-shared
                         initiatorUserName: $scope.profileName,
                         activity:"Sent you a ",
