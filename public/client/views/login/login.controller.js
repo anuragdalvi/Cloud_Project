@@ -47,6 +47,51 @@
         //
         //}
 
+        //$scope.createAdmin = createAdmin;
+        //
+        //createAdmin();
+        //
+        //function createAdmin(){
+        //
+        //    var admin =
+        //    {
+        //        username : "admin@admin.com",
+        //        password : "admin",
+        //        email : "admin@admin.com",
+        //        firstname:"admin",
+        //        lastname:"role"
+        //    };
+        //
+        //    UserService.createUser(admin).then(function (response) {
+        //
+        //        var newAdmin = response;
+        //
+        //        var adminProfile = {userid:newAdmin._id,
+        //            profilePic:"images/Logo 2.png",
+        //            friends:[],
+        //            posts:[],
+        //            messages:[],
+        //            notifications:[],
+        //            phone:"",
+        //            country:"",
+        //            occupation:"",
+        //            role:"admin",
+        //            friendRequests:[],
+        //            dateOfBirth:"12/10/1990"
+        //        };
+        //
+        //        ProfileService.createProfile(adminProfile).then(function(response) {
+        //
+        //            newProfile = response;
+        //            console.log(response);
+        //            console.log("created admin");
+        //        });
+        //
+        //    });
+        //
+        //
+        //}
+
         // toggle between login and register
         function toggle() {
             console.log("to toggle");
@@ -201,7 +246,11 @@
                             $rootScope.$broadcast('auth', rootscopeuser);
                             $scope.user.username = "";
                             $scope.user.password = "";
-                            $location.url('/timeline/' + $rootScope.user._id);
+                            if($sessionStorage.profile.role == "admin"){
+                                $location.url('/admin/' + $rootScope.user._id);
+                            } else {
+                                $location.url('/timeline/' + $rootScope.user._id);
+                            }
                         });
                     }
 
