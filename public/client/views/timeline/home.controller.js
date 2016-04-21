@@ -125,7 +125,7 @@
             if($scope.profile.friends.length > 1) {
                 angular.forEach($scope.profile.friends, function (friend, val) {
 
-                    PostService.getAllPostsByUserId(friend).then(function (response) {
+                    PostService.getAllPostsByUserId(friend._id).then(function (response) {
 
                         var posts = response;
 
@@ -154,6 +154,15 @@
                             });
                         });
                         angular.forEach($scope.myPosts, function (value, key) {
+
+                            UserService.findUserByUserId(value.userid).then(function(usr){
+                                value["profileName"] = usr.firstname + " " + usr.lastname;
+                            });
+
+                            ProfileService.getProfileByUserId(value.userid).then(function(prof){
+
+                                value["profilePic"] = prof[0].profilePic;
+                            });
 
                             CommentService.getAllCommentsByPostId(value.postid).then(function (comments) {
                                 angular.forEach(comments, function (cmnt, key) {

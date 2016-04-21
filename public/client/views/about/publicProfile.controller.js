@@ -301,7 +301,6 @@
                 delete $rootScope.profile;
                 delete $scope.user;
                 delete $scope.profile;
-                $sessionStorage.$reset();
 
                 console.log('after logout');
 

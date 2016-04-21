@@ -18,6 +18,10 @@
                 templateUrl: "views/timeline/home.view.html",
                 controller: "TimelineController"
             })
+            .when("/admin/:userid", {
+                templateUrl: "views/admin/admin.view.html",
+                controller: "AdminController"
+            })
             .when("/about/:userid", {
                 templateUrl: "views/about/publicProfile.view.html",
                 controller: "AboutController"
