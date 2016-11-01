@@ -1,2 +1,2 @@
 # Cloud_Project
-A social networking application experiment project repository.
+A social networking application experiment project repository
